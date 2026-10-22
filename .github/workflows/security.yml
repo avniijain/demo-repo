@@ -11,13 +11,13 @@ permissions:
 jobs:
   cloudguard:
     # Replace with the cloudguard reusable workflow branch or tag (for example v1)
-    uses: avniijain/cloudguard/.github/workflows/cloudguard.yml@REPLACE_WITH_BRANCH_OR_TAG
+    uses: avniijain/cloudguard/.github/workflows/cloudguard.yml@main
     with:
       image-name: demo-repo
       test-install-command: pip install --require-hashes --only-binary=:all: -r requirements-dev.txt
       test-command: pytest -v --cov=app --cov-report=xml --cov-report=term
       # Replace with your SonarCloud/SonarQube organization key
-      sonar-organization: REPLACE_WITH_SONAR_ORG
+      sonar-organization: avniijain
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
