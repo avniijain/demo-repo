@@ -14,7 +14,7 @@ jobs:
     uses: avniijain/cloudguard/.github/workflows/cloudguard.yml@main
     with:
       image-name: demo-repo
-      test-install-command: pip install --require-hashes --only-binary=:all: -r requirements-dev.txt
+      test-install-command: "pip install --require-hashes --only-binary=:all: -r requirements-dev.txt"
       test-command: pytest -v --cov=app --cov-report=xml --cov-report=term
       # Replace with your SonarCloud/SonarQube organization key
       sonar-organization: avniijain
