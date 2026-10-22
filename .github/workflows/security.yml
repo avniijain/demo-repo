@@ -14,10 +14,10 @@ jobs:
     uses: avniijain/cloudguard/.github/workflows/cloudguard.yml@main
     with:
       image-name: demo-repo
+      risk-gate-mode: ${{ vars.RISK_GATE_MODE || 'enforce' }}
+      sonar-organization: ${{ vars.SONAR_ORGANIZATION }}
       test-install-command: "pip install --require-hashes --only-binary=:all: -r requirements-dev.txt"
       test-command: python -m pytest -v --cov=app --cov-report=xml --cov-report=term
-      # Replace with your SonarCloud/SonarQube organization key
-      sonar-organization: avniijain
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
