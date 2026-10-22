@@ -14,6 +14,7 @@ jobs:
     uses: avniijain/cloudguard/.github/workflows/cloudguard.yml@main
     with:
       image-name: demo-repo
+      policy-file: "risk-policy.json"
       risk-gate-mode: ${{ vars.RISK_GATE_MODE || 'enforce' }}
       sonar-organization: ${{ vars.SONAR_ORGANIZATION }}
       test-install-command: "pip install --require-hashes --only-binary=:all: -r requirements-dev.txt"
