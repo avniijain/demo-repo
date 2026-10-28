@@ -108,5 +108,5 @@ Do not commit real tokens. Organization is passed by the workflow input, not sto
 ### Sonar secrets removed
 
 1. Remove `SONAR_TOKEN` and/or `SONAR_HOST_URL` from repo secrets.
-2. Re-run the workflow.
+2. Re-run the workflow pipeline.
 3. Confirm Sonar steps fail or skip as designed, without leaking secret values in logs.
