@@ -18,6 +18,32 @@ jobs:
       sonar-organization: ${{ vars.SONAR_ORGANIZATION }}
       test-install-command: "pip install --require-hashes --only-binary=:all: -r requirements-dev.txt"
       test-command: python -m pytest -v --cov=app --cov-report=xml --cov-report=term
+      export-image: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+  publish-deploy:
+    needs: cloudguard
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    uses: avniijain/cloudguard/.github/workflows/cloudguard-publish.yml@main
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      publish: true
+      deploy: ${{ vars.ENABLE_DEPLOY == 'true' }}
+      decision: ${{ needs.cloudguard.outputs.decision }}
+      risk-gate-mode: ${{ needs.cloudguard.outputs.risk-gate-mode }}
+      image-tag: ${{ needs.cloudguard.outputs.image-tag }}
+      image-id: ${{ needs.cloudguard.outputs.image-id }}
+      image-artifact: ${{ needs.cloudguard.outputs.image-artifact }}
+      registry: ${{ vars.ACR_LOGIN_SERVER }}
+      image-repository: demo-repo
+      environment: production
+      azure-client-id: ${{ vars.AZURE_CLIENT_ID }}
+      azure-tenant-id: ${{ vars.AZURE_TENANT_ID }}
+      azure-subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      resource-group: ${{ vars.AZURE_RESOURCE_GROUP }}
+      container-app: ${{ vars.AZURE_CONTAINER_APP }}
+      health-path: /nope
