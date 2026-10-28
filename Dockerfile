@@ -1,6 +1,6 @@
 FROM python:3.13-slim
 
-RUN apt-get update && apt-get install -y --only-upgrade liblzma5 && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends --only-upgrade liblzma5 && rm -rf /var/lib/apt/lists/*
 
 RUN useradd --uid 10001 --shell /usr/sbin/nologin --no-create-home appuser
 
