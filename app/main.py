@@ -15,6 +15,8 @@ def create_app():
 
     @app.get("/health")
     def health():
+        if os.environ.get("FAIL_PUBLIC_HEALTH") and "--" not in request.host:
+            return jsonify({"status": "down"}), 503
         return jsonify({"status": "ok"}), 200
 
     @app.get("/bookmarks")
