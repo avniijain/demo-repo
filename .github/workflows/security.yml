@@ -46,4 +46,4 @@ jobs:
       azure-subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
       resource-group: ${{ vars.AZURE_RESOURCE_GROUP }}
       container-app: ${{ vars.AZURE_CONTAINER_APP }}
-      health-path: /health
+      health-path: /nope
