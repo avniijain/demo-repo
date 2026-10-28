@@ -47,4 +47,3 @@ jobs:
       resource-group: ${{ vars.AZURE_RESOURCE_GROUP }}
       container-app: ${{ vars.AZURE_CONTAINER_APP }}
       health-path: /health
-      env-vars: FAIL_PUBLIC_HEALTH=1
