@@ -1,0 +1,24 @@
+name: rollback
+
+on:
+  workflow_dispatch:
+    inputs:
+      revision:
+        description: Container Apps revision to roll back to
+        required: true
+        type: string
+
+jobs:
+  rollback:
+    uses: avniijain/cloudguard/.github/workflows/cloudguard-rollback.yml@v1.1
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      revision: ${{ inputs.revision }}
+      azure-client-id: ${{ vars.AZURE_CLIENT_ID }}
+      azure-tenant-id: ${{ vars.AZURE_TENANT_ID }}
+      azure-subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      resource-group: ${{ vars.AZURE_RESOURCE_GROUP }}
+      container-app: ${{ vars.AZURE_CONTAINER_APP }}
+      health-path: /health
