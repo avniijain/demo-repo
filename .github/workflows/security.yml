@@ -20,7 +20,7 @@ jobs:
       test-command: python -m pytest -v --cov=app --cov-report=xml --cov-report=term
       export-image: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     secrets:
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_TOKEN: ${{ github.ref_name == github.event.repository.default_branch && secrets.SONAR_TOKEN || '' }}
       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
   publish-deploy:
