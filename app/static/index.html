@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Bookmarks — CloudGuard</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Bookmarks home"><span class="brand-mark" aria-hidden="true">B</span> Bookmarks</a>
+      <span class="header-note">Your links, in one place</span>
+    </header>
+
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">PERSONAL COLLECTION</p>
+      <h1 id="page-title">Keep the good links close.</h1>
+      <p class="intro-copy">Save useful pages and find them again whenever you need them.</p>
+    </section>
+
+    <section class="panel add-panel" aria-labelledby="add-title">
+      <h2 id="add-title">Add a bookmark</h2>
+      <form id="bookmark-form">
+        <label for="title">Title</label>
+        <input id="title" name="title" type="text" placeholder="e.g. A useful article" required maxlength="200">
+        <label for="url">URL</label>
+        <input id="url" name="url" type="url" placeholder="https://example.com" required>
+        <button class="primary-button" type="submit">Add bookmark <span aria-hidden="true">＋</span></button>
+      </form>
+      <p id="form-message" class="message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="bookmarks-section" aria-labelledby="saved-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">YOUR LIBRARY</p><h2 id="saved-title">Saved bookmarks</h2></div>
+        <span id="bookmark-count" class="count">0 links</span>
+      </div>
+      <p id="list-message" class="message" role="status" aria-live="polite"></p>
+      <ul id="bookmark-list" class="bookmark-list" aria-label="Saved bookmarks"></ul>
+    </section>
+
+    <footer><span class="footer-dot" aria-hidden="true"></span><span id="footer-info">Loading deployment info…</span></footer>
+  </main>
+</body>
+</html>
