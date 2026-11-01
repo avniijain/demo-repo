@@ -43,6 +43,22 @@ docker run --rm -p 8080:8080 demo-repo
 
 Health: `GET http://127.0.0.1:8080/health`
 
+## Deploying
+
+Publish and deploy run only through CloudGuard reusable workflows (no publish/deploy jobs live in this repo). On push to `main`, `security.yml` calls `cloudguard-publish.yml` with `environment: production`, which should be restricted to the `main` branch.
+
+Set these GitHub repository variables:
+
+- `ACR_LOGIN_SERVER`
+- `AZURE_CLIENT_ID`
+- `AZURE_TENANT_ID`
+- `AZURE_SUBSCRIPTION_ID`
+- `AZURE_RESOURCE_GROUP`
+- `AZURE_CONTAINER_APP`
+- `ENABLE_DEPLOY` — set to `true` to deploy after publish; otherwise the image is published only
+
+The container listens on port **8080** and exposes `GET /health`. See CloudGuard [docs/using-cloudguard.md](https://github.com/avniijain/cloudguard/blob/main/docs/using-cloudguard.md).
+
 ## Tests
 
 ```bash
@@ -108,5 +124,7 @@ Do not commit real tokens. Organization is passed by the workflow input, not sto
 ### Sonar secrets removed
 
 1. Remove `SONAR_TOKEN` and/or `SONAR_HOST_URL` from repo secrets.
-2. Re-run the workflow.
+2. Re-run the workflow pipeline.
 3. Confirm Sonar steps fail or skip as designed, without leaking secret values in logs.
+
+Pipeline test.
