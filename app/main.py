@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 
 _bookmarks = {}
 _next_id = 1
@@ -9,9 +9,28 @@ _next_id = 1
 def create_app():
     app = Flask(__name__)
 
+    @app.after_request
+    def add_security_headers(response):
+        response.headers["Content-Security-Policy"] = (
+            "default-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"
+        )
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["Referrer-Policy"] = "no-referrer"
+        response.headers["X-Frame-Options"] = "DENY"
+        return response
+
     @app.get("/")
     def index():
-        return jsonify({"service": "bookmarks-demo", "version": "1.0.0"})
+        return send_from_directory("static", "index.html")
+
+    @app.get("/info")
+    def info():
+        commit = os.environ.get("APP_COMMIT", "")[:7] or "local"
+        return jsonify({
+            "service": "bookmarks-demo",
+            "version": "1.0.0",
+            "commit": commit,
+        })
 
     @app.get("/health")
     def health():
